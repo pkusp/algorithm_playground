@@ -6,6 +6,7 @@
 @attribute: notes
 */
 #include<iostream>
+#include<string>
 using namespace std;
 //  2018.06.11 -------------------- 拷贝构造函数
 class A
@@ -35,13 +36,41 @@ class A
 
 // Exercise 1 ------------------------ 赋值运算符函数
 class CMyString{
+    private:
+        char* m_pData;
     public:
         CMyString(char* pData = NULL);  // constructed function
         CMyString(const CMyString& str); // copy constructed function
+
         ~CMyString(void);  // destructor
-    private:
-        char* m_pData;
+        CMyString& operator = (const CMyString &str){
+        cout<<"copy function run"<< endl;
+        if(this == &str) return *this;
+        delete []m_pData;
+        m_pData = NULL;
+        m_pData = new char[strlen(str.m_pData)+1];
+        strcpy(m_pData,str.m_pData);
+        return *this;
+}
 };
+
+// CMyString& CMyString::operator = (const CMyString &str){
+//     if(this == &str) return *this;
+//     delete []m_pData;
+//     m_pData = NULL;
+//     m_pData = new char[strlen(str.m_pData)+1];
+//     strcpy(m_pData,str.m_pData);
+//     return *this;
+// }
+void test_cmystring(){
+    // string a{"sp", "is", "a", "big", "pig"};
+    char * a;
+    CMyString cm(a);
+    CMyString cc = cm;
+
+}
+
+
 
 // 拷贝构造测试类
 class CopyClass {
@@ -76,8 +105,11 @@ void test_copy_constructor(){
     bb.print_class();
 }
 
+
+
 int main(int argc, char* argv[]){
     test_copy_constructor();
+    test_cmystring();
     return 0;
 }
 
