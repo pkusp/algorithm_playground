@@ -1,3 +1,8 @@
 .DS_Store
 ../.idea/
 .a.out
+*.out
+*.idea/
+.idea/
+*.cache
+*.pyc
